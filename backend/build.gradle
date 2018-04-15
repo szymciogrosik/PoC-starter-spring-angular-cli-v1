@@ -1,0 +1,41 @@
+group 'com.project'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE')
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    /** WEB **/
+    compile 'io.jsonwebtoken:jjwt:0.7.0'
+    compile 'org.springframework.mobile:spring-mobile-device:1.1.5.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-web:1.5.2.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security:1.5.2.RELEASE'
+    compile 'org.springframework.boot:spring-boot-configuration-processor:1.5.2.RELEASE'
+
+    /** DATABASE **/
+    compile 'com.h2database:h2:1.4.194'
+    compile 'commons-dbcp:commons-dbcp:1.2.2'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.5.2.RELEASE'
+
+    /** UTILS **/
+    compile 'org.projectlombok:lombok:1.16.6'
+
+    /** MODULES **/
+    runtime files('build/libs/frontend-1.0-SNAPSHOT.jar')
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

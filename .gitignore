@@ -1,0 +1,12 @@
+/.idea/
+/.gradle/
+
+/backend/build/
+/frontend/build/
+/frontend/src/main/target/
+/frontend/src/main/angular/node_modules/
+/backend/lib/database.mv.db
+/database_models/
+/database.h2.db
+/database.lock.db
+/backend/lib/database.h2.db

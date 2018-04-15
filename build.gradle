@@ -1,0 +1,55 @@
+group 'com.project'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+/** TASKS ROOT **/
+task cleanModules(type: Delete) {
+    delete('out')
+    dependsOn(':cleanFrontend')
+    dependsOn(':cleanBackend')
+}
+
+/** TASKS FRONTEND **/
+task buildFrontend() {
+    dependsOn(':frontend:build')
+}
+
+task buildAngular(type:Exec) {
+    workingDir 'frontend/src/main/angular'
+    commandLine "cmd", "/c", "ng build"
+}
+
+task runAngularServer(type:Exec) {
+    workingDir 'frontend/src/main/angular'
+    commandLine "cmd", "/c", "npm start"
+}
+
+task copyFrontendJar(type: Copy) {
+    from 'frontend/build/libs/frontend-1.0-SNAPSHOT.jar'
+    into 'backend/build/libs'
+}
+
+task cleanFrontend(type: Delete) {
+    delete 'frontend/src/main/target'
+    delete 'frontend/build'
+}
+
+/** TASKS BACKEND **/
+task buildBackend() {
+    dependsOn(':backend:build')
+}
+
+task runBackend() {
+    dependsOn(':backend:bootRun')
+}
+
+task cleanBackend(type: Delete) {
+    delete 'backend/build'
+}
+
+task runDatabase(type: JavaExec) {
+    classpath = files('backend/lib/h2-1.3.175.jar')
+    main = 'org.h2.tools.Server'
+    args '-tcp'
+}
